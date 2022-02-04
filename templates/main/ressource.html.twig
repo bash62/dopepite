@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %} Trouve une sessource{% endblock %}
 
 {% block body %}
 
@@ -14,7 +14,7 @@
     <div id="app">
         <div>
             <h1> Hello</h1>
-            <search-component></search-component>
+            <search-component :res="{{ ressources | json_encode }}"></search-component>
         </div>
 
     </div>

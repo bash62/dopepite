@@ -14,10 +14,9 @@ import '../styles/app.css';
 // start the Stimulus application
 import '../bootstrap';
 
-Vue.component('search-component',require('./Components/RessourceSearch.vue').default);
 
-const app = new Vue({
+new Vue({
     el: '#app', // where <div id="app"> in your DOM contains the Vue template
-
+    components: {App}
 });
 
