@@ -16,7 +16,7 @@ class Group
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'group_id')]
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'group_id')]
     private $users;
 
     public function __construct()

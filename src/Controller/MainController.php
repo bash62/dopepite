@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\DofusRessource;
+use App\Entity\RessourceEntity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Serializer;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,15 +30,11 @@ class MainController extends AbstractController
     #[Route('/show', name: 'show-ressources')]
     public function show(ManagerRegistry $doctrine) : Response
     {
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
+        $entitiesFromUser = $doctrine->getRepository(RessourceEntity::class)->findAll();
 
-        $ressources = $doctrine->getRepository(DofusRessource::class)->findAll();
-        $json = $serializer->serialize($ressources, 'json');
-
+        $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser();
         return $this->render('main/ressource.html.twig', [
-            'ressources' => $ressources
+            'ressources' => $this->json($ressources)
         ]);
     }
 }

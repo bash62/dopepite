@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DofusRessourceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DofusRessourceRepository::class)]
@@ -31,8 +33,16 @@ class DofusRessource
     #[ORM\Column(type: 'string', length: 255)]
     private $url;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $description;
+
+    #[ORM\OneToMany(mappedBy: 'ressource_id', targetEntity: RessourceEntity::class)]
+    private $ressourceEntities;
+
+    public function __construct()
+    {
+        $this->ressourceEntities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,4 +132,36 @@ class DofusRessource
 
         return $this;
     }
+
+    /**
+     * @return Collection|RessourceEntity[]
+     */
+    public function getRessourceEntities(): Collection
+    {
+        return $this->ressourceEntities;
+    }
+
+    public function addRessourceEntity(RessourceEntity $ressourceEntity): self
+    {
+        if (!$this->ressourceEntities->contains($ressourceEntity)) {
+            $this->ressourceEntities[] = $ressourceEntity;
+            $ressourceEntity->setRessourceId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessourceEntity(RessourceEntity $ressourceEntity): self
+    {
+        if ($this->ressourceEntities->removeElement($ressourceEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($ressourceEntity->getRessourceId() === $this) {
+                $ressourceEntity->setRessourceId(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

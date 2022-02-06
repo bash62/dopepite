@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,6 +25,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     private $password;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: RessourceEntity::class)]
+    private $ressourceEntities;
+
+    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'guild_id')]
+    private $guild;
+
+
+    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'users')]
+    private $group_id;
+
+    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'users')]
+    private $guild_id;
+
+    public function __construct()
+    {
+        $this->ressourceEntities = new ArrayCollection();
+        $this->group_id = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -107,4 +129,47 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|RessourceEntity[]
+     */
+    public function getRessourceEntities(): Collection
+    {
+        return $this->ressourceEntities;
+    }
+
+    public function addRessourceEntity(RessourceEntity $ressourceEntity): self
+    {
+        if (!$this->ressourceEntities->contains($ressourceEntity)) {
+            $this->ressourceEntities[] = $ressourceEntity;
+            $ressourceEntity->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessourceEntity(RessourceEntity $ressourceEntity): self
+    {
+        if ($this->ressourceEntities->removeElement($ressourceEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($ressourceEntity->getUserId() === $this) {
+                $ressourceEntity->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGuild(): ?Guild
+    {
+        return $this->guild;
+    }
+
+    public function setGuild(?Guild $guild): self
+    {
+        $this->guild = $guild;
+
+        return $this;
+    }
+
 }

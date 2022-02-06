@@ -28,10 +28,14 @@ class Guild
     #[ORM\OneToMany(mappedBy: 'guild_id', targetEntity: Areas::class)]
     private $areas;
 
+    #[ORM\OneToMany(mappedBy: 'guild', targetEntity: Users::class)]
+    private $group_id;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->areas = new ArrayCollection();
+        $this->group_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,6 +121,36 @@ class Guild
             // set the owning side to null (unless already changed)
             if ($area->getGuildId() === $this) {
                 $area->setGuildId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getGroupId(): Collection
+    {
+        return $this->group_id;
+    }
+
+    public function addGroupId(Users $groupId): self
+    {
+        if (!$this->group_id->contains($groupId)) {
+            $this->group_id[] = $groupId;
+            $groupId->setGuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupId(Users $groupId): self
+    {
+        if ($this->group_id->removeElement($groupId)) {
+            // set the owning side to null (unless already changed)
+            if ($groupId->getGuild() === $this) {
+                $groupId->setGuild(null);
             }
         }
 

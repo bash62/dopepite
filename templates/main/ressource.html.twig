@@ -11,10 +11,11 @@
         </div>
     {% endif %}
 
+
     <div id="app">
         <div>
             <h1> Hello</h1>
-            <search-component :res="{{ ressources | json_encode }}"></search-component>
+            <search-component :res="{{ ressources.content | json_encode }}"></search-component>
         </div>
 
     </div>

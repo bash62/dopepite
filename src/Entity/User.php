@@ -21,11 +21,6 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     private $password;
 
-    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'users')]
-    private $group_id;
-
-    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'users')]
-    private $guild_id;
 
     public function __construct()
     {

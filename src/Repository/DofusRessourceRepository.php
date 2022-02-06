@@ -3,8 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\DofusRessource;
+use App\Entity\RessourceEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * @method DofusRessource|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +23,22 @@ class DofusRessourceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DofusRessource::class);
     }
+
+    public function findAllNotGiveByUser() : array
+    {
+
+        // automatically knows to select Products
+        // the "p" is an alias you'll use in the rest of the query
+        $qb1 = $this->createQueryBuilder('r')
+            ->select('r.id,r.name')
+            ->getQuery();
+
+        return $qb1->execute();
+
+        // to get just one result:
+        // $product = $query->setMaxResults(1)->getOneOrNullResult();
+    }
+
 
     // /**
     //  * @return DofusRessource[] Returns an array of DofusRessource objects
