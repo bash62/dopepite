@@ -6,12 +6,33 @@
 
 <div class="text-3xl"></div>
 
-<div>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+<div id="app">
+
+    <div class="text-3xl font-black">{{ ressource_name }}</div>
 
 </div>
+
+    <div class="">
+
+        <div class="min-h-full w-1/4 h-96 flex items-center justify-center bg-gray-400">
+
+            <div class="flex justify-center items-center h-96 ">
+
+                {{ form_start(form, {'attr': { 'label': 'Prix moyen','class':' grid grid-cols-1 justify-center  text-4xl ' },'label_attr':{'class':'m-12'}})}}
+                {{ form_row(form.price, {'attr': { 'label': 'Prix moyen','class':'w-36' },'label_attr':{'class':'m-12'}}) }}
+                {{ form_row(form.coeff_pepite,{'attr': { 'label': 'Prix moyen','class':'w-36' },'label_attr':{'class':'m-12'}}) }}
+
+                {{ form_row(form.bonus, {'attr': { 'label': 'Bonus','class':'w-36' },'label_attr':{'class':'m-12'}})
+                }}
+
+                {{ form_row(form.valider, {'attr': { 'class':'bg-white flex' }})
+                }}
+
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+    </div>
 
 
 

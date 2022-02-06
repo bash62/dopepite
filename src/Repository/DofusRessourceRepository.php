@@ -24,13 +24,15 @@ class DofusRessourceRepository extends ServiceEntityRepository
         parent::__construct($registry, DofusRessource::class);
     }
 
-    public function findAllNotGiveByUser() : array
+    public function findAllNotGiveByUser($ids) : array
     {
+
 
         // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
         $qb1 = $this->createQueryBuilder('r')
             ->select('r.id,r.name')
+            ->where($this->createQueryBuilder('r')->expr()->notIn('r.id',$ids))
             ->getQuery();
 
         return $qb1->execute();
@@ -38,6 +40,20 @@ class DofusRessourceRepository extends ServiceEntityRepository
         // to get just one result:
         // $product = $query->setMaxResults(1)->getOneOrNullResult();
     }
+
+    public function findAllNoUser() : array
+    {
+        $qb1 = $this->createQueryBuilder('r')
+            ->select('r.id,r.name')
+            ->getQuery();
+
+        return $qb1->execute();
+
+
+        // $product = $query->setMaxResults(1)->getOneOrNullResult();
+    }
+
+
 
 
     // /**

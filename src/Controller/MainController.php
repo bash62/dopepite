@@ -27,12 +27,42 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     * Show all ressources not given by user or user group
+     */
     #[Route('/show', name: 'show-ressources')]
     public function show(ManagerRegistry $doctrine) : Response
     {
-        $entitiesFromUser = $doctrine->getRepository(RessourceEntity::class)->findAll();
+        $found_id = [];
 
-        $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser();
+        // RessourceEntity
+        $entitiesFromUser = $doctrine->getRepository(RessourceEntity::class);
+
+
+        // Fetch all User RessourceEntity if user is connected
+        if(!$this->getUser() || !$entitiesFromUser->findBy(array('user_id' => $this->getUser()->getId()))){
+            $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNoUser();
+
+        }
+        else {
+            $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => $this->getUser()->getId()));
+            foreach ($entitiesFromUser as $entity){
+
+                array_push($found_id, $entity->getRessourceId()->getId());
+            }
+            $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser($found_id);
+
+        }
+
+
+
+
+        // Fetch all Ressources not in $entitiesFromuser
+
+
+
         return $this->render('main/ressource.html.twig', [
             'ressources' => $this->json($ressources)
         ]);

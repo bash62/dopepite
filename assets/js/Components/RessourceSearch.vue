@@ -7,20 +7,25 @@
 
       <div class="flex justify-center">
         <label  class="mr-2 font-medium" for="search-bar">Rechercher une ressource</label>
-        <input v-model="query" type="text" class="w-2/6" id="search-bar">
+        <input
+            autofocus
+            :placeholder="searchPlaceholder"
+            v-model="query" type="text" class="w-2/6" id="search-bar">
       </div>
 
       <div class=" flex justify-center text-3xl font-bold py-3">
-        <div v-if="query && getFilteredPosts.length > 0">
+        <div v-if=" getFilteredPosts.length > 0">
           {{ getFilteredPosts.length }} ressources jamais renseigné trouvés.
 
         </div>
 
         <div v-else >
-          {{ getFilteredPosts.length }} ressources jamais renseigné trouvés.
-        </div>
+          {{ getFilteredPosts.length }} ressources trouvé .
+          <a v-bind:href="newPost" class="text-blue-600"> La renseigner ? </a>
 
+        </div>
       </div>
+
       <div class="flex justify-center">
         <div class="w-1/3 ">
 
@@ -56,7 +61,9 @@ export default {
       return {
         ressources: JSON.parse(this.res),
         query: '',
+        searchPlaceholder : "Nom d'une ressource",
         url:'/ressource/add/',
+        newPost:'/ressource/new'
       }
     },
     props: ['res'],
@@ -74,6 +81,9 @@ export default {
     computed: {
       getFilteredPosts(){
         return this.ressources.filter(post => {
+          if(this.query == 'oe' ){
+            this.query = "Œ";
+          }
           return post.name.toLowerCase().startsWith(this.query.toLowerCase());
         })
       },

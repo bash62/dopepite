@@ -37,6 +37,9 @@ class RessourceEntity
     #[ORM\Column(type: 'datetime')]
     private $date;
 
+    private float $bonus ;
+
+
     public function __construct()
     {
 
@@ -107,5 +110,26 @@ class RessourceEntity
         $this->date = $date;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBonus()
+    {
+        return $this->bonus;
+    }
+
+    /**
+     * @param mixed $bonus
+     */
+    public function setBonus($bonus): void
+    {
+        $this->bonus = $bonus;
+    }
+
+    public function setCoeffPepiteByBonus($pepite,$bonus)
+    {
+        $this->coeff_pepite = ($pepite*2) / (1+($bonus/100));
     }
 }

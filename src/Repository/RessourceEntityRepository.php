@@ -19,6 +19,24 @@ class RessourceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, RessourceEntity::class);
     }
 
+    // Get last updated element of RessourceEntity
+
+    public function getLastestElement($id,$userid){
+
+        $qb1 = $this->createQueryBuilder('r')
+            ->leftJoin('r.ressource_id','c')
+            ->where('r.user_id = :userid')
+            ->andWhere('r.ressource_id = :id')
+            ->setParameter('userid',$userid)
+            ->setParameter('id',$id)
+            ->orderBy('r.date', 'asc')
+            ->setMaxResults(1)
+            ->getQuery();
+        return $qb1->execute();
+
+
+    }
+
     // /**
     //  * @return RessourceEntity[] Returns an array of RessourceEntity objects
     //  */
