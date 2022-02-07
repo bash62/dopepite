@@ -31,8 +31,9 @@
 
       <div class="flex justify-center">
         <div class="w-1/3">
+        <div v-if="this.query.length < 2"> </div>
 
-          <div class=" justify-center items-center bg-gray-800 bg-opacity-75 p-4 m-1.5 rounded-sm cursor-pointer hover:scale-125 hover:my-2"  v-on:click="onClickRedirect" v-for="ressource in getFilteredPosts" v-bind:key="ressource.name" v-bind:href="ressource.id" >
+          <div v-else class=" justify-center items-center bg-gray-800 bg-opacity-75 p-4 m-1.5 rounded-sm cursor-pointer hover:scale-125 hover:my-2"  v-on:click="onClickRedirect" v-for="ressource in getFilteredPosts" v-bind:key="ressource.name" v-bind:href="ressource.id" >
             <div class="relative flex text-align">
               <a v-bind:href="url + ressource.id" class=" w-full h-full absolute "></a>
               <div class=" left-5 " >
@@ -42,7 +43,8 @@
 
               </div>
               <div class="text-4xl font-medium text-white ">{{ ressource.name }}</div>
-            </div>
+        </div>
+
 
 
 
@@ -93,6 +95,7 @@ export default {
           if(this.query == 'oe' ){
             this.query = "Œ";
           }
+
           return post.name.toLowerCase().startsWith(this.query.toLowerCase());
         })
       },
