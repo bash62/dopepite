@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\DofusRessource;
+use App\Entity\Group;
 use App\Entity\RessourceEntity;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Serializer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
+
 
 class MainController extends AbstractController
 {
@@ -27,6 +24,13 @@ class MainController extends AbstractController
         ]);
     }
 
+    #[Route('/', name: 'home')]
+    public function home(): Response
+    {
+        return $this->redirectToRoute('show-ressources');
+    }
+
+
     /**
      * @param ManagerRegistry $doctrine
      * @return Response
@@ -40,19 +44,51 @@ class MainController extends AbstractController
         // RessourceEntity
         $entitiesFromUser = $doctrine->getRepository(RessourceEntity::class);
 
+        //Get all users from Users_Group
+        $entitiesFromGroup = $doctrine->getRepository(Group::class);
 
-        // Fetch all User RessourceEntity if user is connected
-        if(!$this->getUser() || !$entitiesFromUser->findBy(array('user_id' => $this->getUser()->getId()))){
+        // Fetch all common user in groups
+        $userGroupId = [];
+
+
+
+        // If User is not connected
+        if(!$this->getUser()){
             $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNoUser();
 
         }
         else {
-            $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => $this->getUser()->getId()));
-            foreach ($entitiesFromUser as $entity){
 
-                array_push($found_id, $entity->getRessourceId()->getId());
+            $userGroup = $entitiesFromGroup->findAllCommonUserIds($this->getUser()->getId());
+            //Foreach Group where user is
+            foreach ($userGroup as $ug ){
+                $user = $ug->getUsers();
+                // Foreach users in thos groups
+                foreach ($user as $u){
+                    array_push($userGroupId,$u->getId());
+
+                }
             }
-            $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser($found_id);
+
+            //Fetch all $ids from all user in group
+            $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => array_unique($userGroupId)));
+
+            // If no elements is found then ressources = All database
+            if(!$entitiesFromUser){
+                $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNoUser();
+
+            }
+            else{
+                // Create an array of entities
+                foreach ($entitiesFromUser as $entity){
+
+                    array_push($found_id, $entity->getRessourceId()->getId());
+                }
+
+                $found_id = array_unique($found_id);
+                $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser($found_id);
+
+            }
 
         }
 
@@ -64,7 +100,9 @@ class MainController extends AbstractController
 
 
         return $this->render('main/ressource.html.twig', [
-            'ressources' => $this->json($ressources)
+            'ressources' => $this->json($ressources),
+
         ]);
     }
+
 }

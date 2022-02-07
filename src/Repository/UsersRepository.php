@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Group;
+use App\Entity\User;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,6 +37,8 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+
 
     // /**
     //  * @return Users[] Returns an array of Users objects

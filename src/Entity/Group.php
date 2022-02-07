@@ -16,7 +16,7 @@ class Group
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'group_id')]
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'groupÃs')]
     private $users;
 
     public function __construct()
@@ -24,35 +24,39 @@ class Group
         $this->users = new ArrayCollection();
     }
 
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Users[]
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(User $user): self
+    public function addUser(Users $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addGroupId($this);
+            $user->addGroup($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeUser(Users $user): self
     {
         if ($this->users->removeElement($user)) {
-            $user->removeGroupId($this);
+            $user->removeGroup($this);
         }
 
         return $this;
     }
+
+
 }

@@ -14,6 +14,28 @@
         {% endblock %}
     </head>
     <body class="bg-gray-300">
+
+        <div class="w-full h-36 bg-purple-800 mb-3">
+            {% if app.user %}
+                <div class="flex justify-center  items-center text-white font-black  h-1/2 px-48  uppercase text-5xl divide-y-2">
+                     <div class=" border-b-2 border-dashed -border-w-2">{{ app.user.username }}</div>
+                </div>
+                <div class="flex justify-center text-white uppercase items-center text-2xl  mt-2.5">
+                    <a class="mr-4 hover:text-blue-600 cursor-pointer">add</a>
+                    <a class="mr-4 hover:text-blue-600 cursor-pointer">groups</a>
+                    <a class="hover:text-blue-600 cursor-pointer" href="{{ path('app_logout') }}">logout</a>
+                </div>
+            {% endif %}
+
+            {% if not app.user %}
+                <div class="flex justify-center  items-center text-white font-black  h-1/2 px-48  uppercase text-5xl divide-y-2">
+                    <div class=" border-b-2 border-dashed -border-w-2">Anonymous</div>
+                </div>
+                <div class="flex justify-center text-white uppercase items-center text-2xl  mt-2.5">
+                    <a class="hover:text-blue-600 cursor-pointer" href="{{ path('app_login') }}">Se connecter</a>
+                </div>
+            {% endif %}
+        </div>
         {% block body %}{% endblock %}
     </body>
 </html>

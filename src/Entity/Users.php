@@ -29,20 +29,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: RessourceEntity::class)]
     private $ressourceEntities;
 
-    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'guild_id')]
+    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'users')]
     private $guild;
 
-
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'users')]
-    private $group_id;
+    private $groupÃs;
 
-    #[ORM\ManyToOne(targetEntity: Guild::class, inversedBy: 'users')]
-    private $guild_id;
 
     public function __construct()
     {
         $this->ressourceEntities = new ArrayCollection();
-        $this->group_id = new ArrayCollection();
+        $this->groupÃs = new ArrayCollection();
+
 
     }
 
@@ -171,5 +169,31 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupÃs(): Collection
+    {
+        return $this->groupÃs;
+    }
+
+    public function addGroup(Group $group): self
+    {
+        if (!$this->groupÃs->contains($group)) {
+            $this->groupÃs[] = $group;
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): self
+    {
+        $this->groupÃs->removeElement($group);
+
+        return $this;
+    }
+
+
 
 }

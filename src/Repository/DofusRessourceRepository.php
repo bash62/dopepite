@@ -27,7 +27,10 @@ class DofusRessourceRepository extends ServiceEntityRepository
     public function findAllNotGiveByUser($ids) : array
     {
 
-
+        $qb2 = $this->createQueryBuilder('r')
+            ->select('r.id,r.name')
+            ->where($this->createQueryBuilder('r')->expr()->notIn('r.id',$ids))
+            ->getQuery();
         // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
         $qb1 = $this->createQueryBuilder('r')

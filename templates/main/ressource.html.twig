@@ -5,16 +5,11 @@
 {% block body %}
 
 
-    {% if app.user %}
-        <div class="flex justify-center p-5 text-5xl">
-            Hello {{ app.user.username }}, <a class="text-red-500" href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+
 
 
     <div id="app">
-        <div>
-            <h1> Hello</h1>
+        <div class="px-10">
             <search-component :res="{{ ressources.content | json_encode }}"></search-component>
         </div>
 

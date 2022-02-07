@@ -22,20 +22,20 @@ class Guild
     #[ORM\JoinColumn(nullable: false)]
     private $server_id;
 
-    #[ORM\OneToMany(mappedBy: 'guild_id', targetEntity: User::class)]
-    private $users;
+
 
     #[ORM\OneToMany(mappedBy: 'guild_id', targetEntity: Areas::class)]
     private $areas;
 
     #[ORM\OneToMany(mappedBy: 'guild', targetEntity: Users::class)]
-    private $group_id;
+    private $users;
+
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+
         $this->areas = new ArrayCollection();
-        $this->group_id = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,35 +67,6 @@ class Guild
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setGuildId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getGuildId() === $this) {
-                $user->setGuildId(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Areas[]
@@ -130,30 +101,33 @@ class Guild
     /**
      * @return Collection|Users[]
      */
-    public function getGroupId(): Collection
+    public function getUsers(): Collection
     {
-        return $this->group_id;
+        return $this->users;
     }
 
-    public function addGroupId(Users $groupId): self
+    public function addUser(Users $user): self
     {
-        if (!$this->group_id->contains($groupId)) {
-            $this->group_id[] = $groupId;
-            $groupId->setGuild($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setGuild($this);
         }
 
         return $this;
     }
 
-    public function removeGroupId(Users $groupId): self
+    public function removeUser(Users $user): self
     {
-        if ($this->group_id->removeElement($groupId)) {
+        if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($groupId->getGuild() === $this) {
-                $groupId->setGuild(null);
+            if ($user->getGuild() === $this) {
+                $user->setGuild(null);
             }
         }
 
         return $this;
     }
+
+
+
 }

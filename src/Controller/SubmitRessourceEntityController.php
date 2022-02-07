@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\DofusRessource;
+use App\Entity\Group;
 use App\Entity\RessourceEntity;
 use App\Form\DofusRessourceEntityFormType;
 use App\Form\RessourceEntityFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,11 +68,18 @@ class SubmitRessourceEntityController extends AbstractController
 
         $ressourceEntityRepository = $doctrine->getRepository(RessourceEntity::class);
 
-        // Check if user already register this RessourceEntity();
+        //Check if entity exist
+
+        if(!$ressource->find($id)){
+            return $this->redirectToRoute('show-ressources');
+
+
+        }
+        // Check if user or member of group already register this RessourceEntity();
 
 
 
-        if($ressourceEntityRepository->getLastestElement($id,$requestUserId)){
+        if($this->isAlreadyInDb($doctrine,$ressource->find($id)->getId())){
 
              return $this->redirectToRoute('show-ressources');
         }
@@ -106,6 +115,56 @@ class SubmitRessourceEntityController extends AbstractController
             'ressource_name'=>$ressource->getName(),
 
         ]);
+    }
+
+    /**
+     * Check if the id of the ressource is already given by another user
+     * @param ManagerRegistry $doctrine
+     * @param int $id The id of the ressource
+     * @return bool
+     */
+    public function isAlreadyInDb(ManagerRegistry $doctrine,int $id) : bool {
+
+        $found_id = [];
+
+        // RessourceEntity
+        $entitiesFromUser = $doctrine->getRepository(RessourceEntity::class);
+
+        //Get all users from Users_Group
+        $entitiesFromGroup = $doctrine->getRepository(Group::class);
+
+        // Fetch all common user in groups
+        $userGroupId = [];
+
+
+
+        $userGroup = $entitiesFromGroup->findAllCommonUserIds($this->getUser()->getId());
+        //Foreach Group where user is
+        foreach ($userGroup as $ug ){
+            $user = $ug->getUsers();
+            // Foreach users in thos groups
+            foreach ($user as $u){
+                array_push($userGroupId,$u->getId());
+
+            }
+        }
+
+        //Fetch all $ids from all user in group
+        $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => array_unique($userGroupId)));
+
+
+        // Create an array of entities
+        foreach ($entitiesFromUser as $entity){
+
+            array_push($found_id, $entity->getRessourceId()->getId());
+        }
+
+        $found_id = array_unique($found_id);
+        return in_array($id,$found_id);
+
+
+
+
     }
 
 }
