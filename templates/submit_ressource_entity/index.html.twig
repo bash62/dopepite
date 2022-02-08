@@ -3,37 +3,73 @@
 {% block title %}Hello SumbitRessourceEntityController!{% endblock %}
 
 {% block body %}
+    <div class="w-full h-full flex flex-col items-center space-y-10">
+        <div id="app" class="py-4">
+            <div class="text-4xl font-medium">{{ ressource_name }}</div>
+        </div>
 
-<div class="text-3xl"></div>
+        <div class="px-20 rounded-xl py-8 flex flex-col items-center justify-center bg-zinc-800 space-y-4">
 
-<div id="app">
+            {{ form_start(
+                form, {
+                    'attr': {
+                        'label': 'Prix moyen',
+                        'class': 'h-full w-full flex flex-col items-center justify-center space-y-6'
+                    },
+                    'label_attr':{
+                        'class': ''
+                    }
+                }
+            ) }}
 
-    <div class="text-3xl font-black">{{ ressource_name }}</div>
-
-</div>
-
-    <div class="">
-
-        <div class="min-h-full w-1/4 h-96 flex items-center justify-center bg-gray-400">
-
-            <div class="flex justify-center items-center h-96 ">
-
-                {{ form_start(form, {'attr': { 'label': 'Prix moyen','class':' grid grid-cols-1 justify-center  text-4xl ' },'label_attr':{'class':'m-12'}})}}
-                {{ form_row(form.price, {'attr': { 'label': 'Prix moyen','class':'w-36' },'label_attr':{'class':'m-12'}}) }}
-                {{ form_row(form.coeff_pepite,{'attr': { 'label': 'Prix moyen','class':'w-36' },'label_attr':{'class':'m-12'}}) }}
-
-                {{ form_row(form.bonus, {'attr': { 'label': 'Bonus','class':'w-36' },'label_attr':{'class':'m-12'}})
-                }}
-
-                {{ form_row(form.valider, {'attr': { 'class':'bg-white flex' }})
-                }}
-
-                {{ form_end(form) }}
+            <div class="flex flex-col items-center w-full">
+                <div class="w-full flex justify-center items-center mb-2 text-xl font-medium">
+                    {{ form_label(form.price, 'Prix') }} <i class="ml-3 text-yellow-400 fab fa-korvue"></i>
+                </div>
+                {{ form_widget(
+                    form.price, {
+                        'attr': {
+                            'class': 'w-full rounded-lg text-zinc-900 px-2 py-1 text-center text-lg'
+                        }
+                    }
+                ) }}
             </div>
 
+            <div class="flex flex-col items-center w-full">
+                <div class="w-full flex justify-center items-center mb-2 text-xl font-medium">
+                    {{ form_label(form.coeff_pepite, 'Coeff Pepite') }} <i class="ml-3 text-green-400 fas fa-gem"></i>
+                </div>
+                {{ form_widget(
+                    form.coeff_pepite, {
+                        'attr': {
+                            'class': 'w-full rounded-lg text-zinc-900 px-2 py-1 text-center text-lg'
+                        }
+                    }
+                ) }}
+            </div>
+
+            <div class="flex flex-col items-center w-full">
+                <div class="w-full flex justify-center items-center mb-2 text-xl font-medium">
+                    {{ form_label(form.bonus, 'Bonus') }} <i class="ml-3 fas fa-percent"></i>
+                </div>
+                {{ form_widget(
+                    form.bonus, {
+                        'attr': {
+                            'class': 'w-full rounded-lg text-zinc-900 px-2 py-1 text-center text-lg'
+                        }
+                    }
+                ) }}
+            </div>
+
+            {{ form_row(
+                form.valider, {
+                    'attr': {
+                        'class':'rounded-lg text-white bg-purple-800 px-4 py-2 text-lg hover:bg-purple-900'
+                    }
+                }
+            ) }}
+
+            {{ form_end(form) }}
         </div>
     </div>
-
-
-
 {% endblock %}

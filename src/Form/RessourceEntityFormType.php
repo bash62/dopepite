@@ -17,20 +17,17 @@ class RessourceEntityFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('price', null,['attr' => ['autofocus'=>true]])
+            ->add('price', null,[
+                'attr' => [
+                    'autofocus' => true,
+                ]
+            ])
             ->add('coeff_pepite')
             ->add('bonus', NumberType::class,[
                 'attr' => [
                     'value' => 0,
-                    'class' => '',
                 ],
-                'label_attr' => [
-
-                    'class' => 'text-xl font-medium  '
-                ]
-
             ])
-
             ->add('valider', SubmitType::class)
         ;
     }
