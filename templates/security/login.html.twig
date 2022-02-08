@@ -15,7 +15,7 @@
             <h1 class="text-4xl font-medium">Please sign in</h1>
         </div>
 
-        <div class="w-1/4 w-full px-20 rounded-xl h-96 flex flex-col items-center justify-center bg-zinc-800 space-y-4">
+        <div class="px-20 rounded-xl py-8 flex flex-col items-center justify-center bg-zinc-800 space-y-4">
             <form method="post" class="h-full w-full flex flex-col items-center justify-center space-y-6">
                 {% if error %}
                     <div class="rounded-lg bg-red-600 py-2 mb-2 px-4 text-lg flex justify-center items-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

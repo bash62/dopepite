@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\DofusRessource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class DofusRessourceEntityFormType extends AbstractType
     {
         $builder
 
-            ->add('name')
+            ->add('name', TextType::class, ['attr' => ['autofocus'=>true]])
             ->add('level')
             ->add('type')
             ->add('imgUrl')

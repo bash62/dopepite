@@ -22,15 +22,8 @@ class RessourceEntityFormType extends AbstractType
             ->add('bonus', NumberType::class,[
                 'attr' => [
                     'value' => 0,
-                    'class' => '',
                 ],
-                'label_attr' => [
-
-                    'class' => 'text-xl font-medium  '
-                ]
-
             ])
-
             ->add('valider', SubmitType::class)
         ;
     }
