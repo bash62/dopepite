@@ -2,23 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab3dc6e7-4638-4ba9-96ad-74b804d5816b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Form/DofusRessourceEntityFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/DofusRessourceEntityFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/submit_ressource_entity/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/submit_ressource_entity/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/submit_ressource_entity/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/submit_ressource_entity/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/72382df3-25ba-49cb-a5aa-6ae410023a3b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/72382df3-25ba-49cb-a5aa-6ae410023a3b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/DofusRessource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/DofusRessource.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -119,13 +123,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -136,6 +135,8 @@
       <option name="presentableId" value="Default" />
       <updated>1644270273426</updated>
       <workItem from="1644270299600" duration="11655000" />
+      <workItem from="1644318569039" duration="1050000" />
+      <workItem from="1644430321437" duration="1898000" />
     </task>
     <servers />
   </component>

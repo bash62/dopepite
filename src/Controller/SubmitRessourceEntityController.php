@@ -26,6 +26,27 @@ class SubmitRessourceEntityController extends AbstractController
         ]);
     }
 
+    #[Route('/ressource/archive/{id}', name: 'archiver-ressource')]
+    public function archiveRessource(int $id,ManagerRegistry $doctrine,Request $request): Response
+    {
+
+        $message = "L'objet $id est bien archivé.";
+        $entityManager = $doctrine->getManager();
+        $ressource = $doctrine->getRepository(DofusRessource::class)->find($id);
+
+
+        if(!$ressource){
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        $ressource->setAvailable(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show-ressources');
+
+
+    }
 
     #[Route('/ressource/new/', name: 'new_ressource')]
     public function new(ManagerRegistry $doctrine,Request $request,EntityManagerInterface $entityManager) : Response

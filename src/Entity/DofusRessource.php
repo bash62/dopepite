@@ -39,6 +39,9 @@ class DofusRessource
     #[ORM\OneToMany(mappedBy: 'ressource_id', targetEntity: RessourceEntity::class)]
     private $ressourceEntities;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $available;
+
     public function __construct()
     {
         $this->ressourceEntities = new ArrayCollection();
@@ -159,6 +162,18 @@ class DofusRessource
                 $ressourceEntity->setRessourceId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvailable(): ?bool
+    {
+        return $this->available;
+    }
+
+    public function setAvailable(?bool $available): self
+    {
+        $this->available = $available;
 
         return $this;
     }
