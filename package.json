@@ -26,6 +26,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "javascript-time-ago": "^2.3.11",
         "vue-hotkeys-rt": "^0.1.0"
     }
 }

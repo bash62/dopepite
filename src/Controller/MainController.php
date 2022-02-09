@@ -94,7 +94,6 @@ class MainController extends AbstractController
 
 
 
-
         // Fetch all Ressources not in $entitiesFromuser
 
 

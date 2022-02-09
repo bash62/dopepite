@@ -19,8 +19,29 @@ class RessourceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, RessourceEntity::class);
     }
 
-    // Get last updated element of RessourceEntity
+    /**
+     * @param $userId int : User Id
+     * @param $elements int : Number of elment to fetch,
+     * @return void
+     */
 
+    public function findLastActionFromUser(int $userId, int $elements){
+            $qb = $this->createQueryBuilder('r')
+                ->select('r.id, r.coeff_pepite ,r.price, r.date, i.name')
+                ->where('r.user_id = :id')
+                ->leftJoin('r.ressource_id','i')
+                ->setParameter('id',$userId)
+                ->orderBy('r.date','desc')
+                ->setMaxResults($elements)
+                ->getQuery();
+
+            return $qb->execute();
+
+
+    }
+
+
+    // Get last updated element of RessourceEntity
     public function getLastestElement($id,$userid){
 
         $qb1 = $this->createQueryBuilder('r')
