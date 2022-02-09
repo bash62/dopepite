@@ -36,6 +36,7 @@ class DofusRessourceRepository extends ServiceEntityRepository
         $qb1 = $this->createQueryBuilder('r')
             ->select('r.id,r.name')
             ->where($this->createQueryBuilder('r')->expr()->notIn('r.id',$ids))
+            ->andWhere('r.available is null ')
             ->getQuery();
 
         return $qb1->execute();
@@ -48,6 +49,8 @@ class DofusRessourceRepository extends ServiceEntityRepository
     {
         $qb1 = $this->createQueryBuilder('r')
             ->select('r.id,r.name')
+            ->where('r.available is null ')
+
             ->getQuery();
 
         return $qb1->execute();
