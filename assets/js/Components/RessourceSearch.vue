@@ -53,7 +53,7 @@
       }
     },
     mounted() {
-
+      console.log(this.res)
     },
     computed: {
       getFilteredPosts(){

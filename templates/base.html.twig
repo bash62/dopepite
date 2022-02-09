@@ -23,8 +23,9 @@
                      <div class=" border-b-2 border-dashed -border-w-2">{{ app.user.username }}</div>
                 </div>
                 <div class="flex justify-center text-white uppercase items-center text-2xl  mt-2.5">
-                    <a class="mr-4 hover:text-blue-600 cursor-pointer">add</a>
+                    <a class="mr-4 hover:text-blue-600 cursor-pointer" href="{{  path('show-ressources') }}">add</a>
                     <a class="mr-4 hover:text-blue-600 cursor-pointer">groups</a>
+                    <a class="mr-4 hover:text-blue-600 cursor-pointer" href="{{  path('history_action') }}">historique</a>
                     <a class="hover:text-blue-600 cursor-pointer" href="{{ path('app_logout') }}">logout</a>
                 </div>
             {% endif %}

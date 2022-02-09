@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HistoryActionController!{% endblock %}
+
+{% block body %}
+
+<div id="app">
+    <show-history :res="{{ last_action.content | json_encode }}"></show-history>
+    <h1> Hello r! </h1>
+</div>
+
+
+{% endblock %}

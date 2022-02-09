@@ -122,6 +122,9 @@ class SubmitRessourceEntityController extends AbstractController
             if($bonus > 0){
                 $ressourceEntity->setCoeffPepiteByBonus($pepite,$bonus);
             }
+            else{
+                $ressourceEntity->setCoeffPepite($pepite*2);
+            }
 
 
             $entityManager->persist($ressourceEntity);
@@ -137,6 +140,7 @@ class SubmitRessourceEntityController extends AbstractController
 
         ]);
     }
+
 
     /**
      * Check if the id of the ressource is already given by another user
@@ -187,5 +191,7 @@ class SubmitRessourceEntityController extends AbstractController
 
 
     }
+
+
 
 }

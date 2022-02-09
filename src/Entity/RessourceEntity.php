@@ -128,8 +128,8 @@ class RessourceEntity
         $this->bonus = $bonus;
     }
 
-    public function setCoeffPepiteByBonus($pepite,$bonus)
+    public function setCoeffPepiteByBonus(float $pepite, int $bonus)
     {
-        $this->coeff_pepite = ($pepite*2) / (1+($bonus/100));
+        $this->setCoeffPepite($pepite*2 / (1+($bonus/100)));
     }
 }
