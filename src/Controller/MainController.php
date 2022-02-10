@@ -7,8 +7,10 @@ use App\Entity\Group;
 use App\Entity\RessourceEntity;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 
 class MainController extends AbstractController
@@ -50,7 +52,7 @@ class MainController extends AbstractController
         // Fetch all common user in groups
         $userGroupId = [];
 
-
+        $foundDataFromAllGroups = [];
 
         // If User is not connected
         if(!$this->getUser()){
@@ -112,7 +114,7 @@ class MainController extends AbstractController
 
         return $this->render('main/ressource.html.twig', [
             'ressources' => $this->json($ressources),
-            'ressource_found' => $this->json($foundDataFromAllGroups),
+            'ressource_found' => $foundDataFromAllGroups ? $this->json($foundDataFromAllGroups) : $this->json([]),
 
         ]);
     }
