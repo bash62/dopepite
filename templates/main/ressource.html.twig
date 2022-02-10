@@ -6,7 +6,7 @@
 
     <div id="app">
         <div class="px-10 ">
-            <search-component :res="{{ ressources.content | json_encode }}"></search-component>
+            <search-component :res="{{ ressources.content | json_encode }}" :res_found="{{  ressource_found.content | json_encode }}"></search-component>
         </div>
 
     </div>
