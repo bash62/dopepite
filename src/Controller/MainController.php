@@ -63,15 +63,19 @@ class MainController extends AbstractController
             //Foreach Group where user is
             foreach ($userGroup as $ug ){
                 $user = $ug->getUsers();
+
                 // Foreach users in thos groups
                 foreach ($user as $u){
                     array_push($userGroupId,$u->getId());
 
                 }
             }
+            $userGroupId = array_unique($userGroupId);
 
-            //Fetch all $ids from all user in group
-            $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => array_unique($userGroupId)));
+
+            //Fetch all @RessourceEntity from all user in group
+            $entitiesFromUser = $entitiesFromUser->findBy(array('user_id' => $userGroupId));
+
 
             // If no elements is found then ressources = All database
             if(!$entitiesFromUser){
@@ -79,13 +83,21 @@ class MainController extends AbstractController
 
             }
             else{
-                // Create an array of entities
+                // Create an array of dofus ressource
+
                 foreach ($entitiesFromUser as $entity){
 
                     array_push($found_id, $entity->getRessourceId()->getId());
                 }
 
+
                 $found_id = array_unique($found_id);
+
+
+
+                //Found object to parse in JSON for front
+                $foundDataFromAllGroups = $doctrine->getRepository(RessourceEntity::class)->fetchObjectJoin($entitiesFromUser);
+
                 $ressources = $doctrine->getRepository(DofusRessource::class)->findAllNotGiveByUser($found_id);
 
             }
@@ -94,12 +106,13 @@ class MainController extends AbstractController
 
 
 
-        // Fetch all Ressources not in $entitiesFromuser
+
 
 
 
         return $this->render('main/ressource.html.twig', [
             'ressources' => $this->json($ressources),
+            'ressource_found' => $this->json($foundDataFromAllGroups),
 
         ]);
     }
