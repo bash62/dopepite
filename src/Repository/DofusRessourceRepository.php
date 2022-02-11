@@ -16,7 +16,9 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
  * @method DofusRessource|null findOneBy(array $criteria, array $orderBy = null)
  * @method DofusRessource[]    findAll()
  * @method DofusRessource[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+
  */
+
 class DofusRessourceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -27,15 +29,23 @@ class DofusRessourceRepository extends ServiceEntityRepository
     public function findAllNotGiveByUser($ids) : array
     {
 
-        $qb2 = $this->createQueryBuilder('r')
-            ->select('r.id,r.name')
-            ->where($this->createQueryBuilder('r')->expr()->notIn('r.id',$ids))
-            ->getQuery();
-        // automatically knows to select Products
-        // the "p" is an alias you'll use in the rest of the query
         $qb1 = $this->createQueryBuilder('r')
             ->select('r.id,r.name')
             ->where($this->createQueryBuilder('r')->expr()->notIn('r.id',$ids))
+            ->andWhere('r.available is null ')
+            ->getQuery();
+
+        return $qb1->execute();
+
+    }
+
+    public function findAllGiveByUser($ids) : array
+    {
+
+
+        $qb1 = $this->createQueryBuilder('r')
+            ->select('r.id,r.name')
+            ->where($this->createQueryBuilder('r')->expr()->In('r.id',$ids))
             ->getQuery();
 
         return $qb1->execute();
@@ -44,47 +54,21 @@ class DofusRessourceRepository extends ServiceEntityRepository
         // $product = $query->setMaxResults(1)->getOneOrNullResult();
     }
 
+    /**
+     * Find all object to display in BDD not archived //
+     * @return array
+     */
+
     public function findAllNoUser() : array
     {
         $qb1 = $this->createQueryBuilder('r')
             ->select('r.id,r.name')
+            ->where('r.available is null ')
+
             ->getQuery();
 
         return $qb1->execute();
 
 
-        // $product = $query->setMaxResults(1)->getOneOrNullResult();
     }
-
-
-
-
-    // /**
-    //  * @return DofusRessource[] Returns an array of DofusRessource objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?DofusRessource
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

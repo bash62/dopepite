@@ -112,7 +112,5 @@ class HistoryActionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('history_action');
-
-
     }
 }

@@ -19,6 +19,28 @@ class RessourceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, RessourceEntity::class);
     }
 
+
+    public function fetchObjectJoin( $objectIds ) {
+        $ressourceId = [];
+
+        foreach ($objectIds as $id){
+            array_push($ressourceId,$id->getId());
+        }
+        $ressourceId = array_unique($ressourceId);
+
+        $db = $this->createQueryBuilder('r')
+            ->select('r.id,e.name,r.price,r.date,u.username')
+            ->join('r.ressource_id','e')
+            ->where($this->createQueryBuilder('e')->expr()->In('r.id',$ressourceId))
+            ->join('r.user_id','u')
+
+            ->getQuery()
+            ->execute();
+
+
+        return $db;
+    }
+
     /**
      * @param $userId int : User Id
      * @param $elements int : Number of elment to fetch,
@@ -58,32 +80,4 @@ class RessourceEntityRepository extends ServiceEntityRepository
 
     }
 
-    // /**
-    //  * @return RessourceEntity[] Returns an array of RessourceEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?RessourceEntity
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
