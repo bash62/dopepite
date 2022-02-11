@@ -163,6 +163,7 @@ class SubmitRessourceEntityController extends AbstractController
 
 
         if($this->isAlreadyInDb($doctrine,$ressource->find($id)->getId())){
+
              $ressourceUpdated = new RessourceEntity();
              $ressourceData = $ressourceEntityRepository->find($id);
              $form = $this->createForm(RessourceEntityFormType::class,$ressourceData);
