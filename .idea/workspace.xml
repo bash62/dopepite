@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab3dc6e7-4638-4ba9-96ad-74b804d5816b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/Components/RessourceSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/Components/RessourceSearch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/RessourceEntityRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RessourceEntityRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/submit_ressource_entity/update_price.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/submit_ressource_entity/update_price.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +19,11 @@
     </colors>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -171,7 +171,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
