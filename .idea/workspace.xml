@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab3dc6e7-4638-4ba9-96ad-74b804d5816b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/submit_ressource_entity/update_price.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SubmitRessourceEntityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RessourceEntityFormType.php" afterDir="false" />
-    </list>
+    <list default="true" id="ab3dc6e7-4638-4ba9-96ad-74b804d5816b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
