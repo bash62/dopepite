@@ -28,14 +28,18 @@
                   </div>
                   <div>
                     <p class="block text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
-                    <p class="block text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">Renseigné par {{ ressource.username }}</p>
+                    <div class="flex">
+                      <p class="block text-xl font-medium text-white h-full flex justify-center items-center w-full px-4">Renseigné par {{ ressource.username }}</p>
+                      <p class="block text-xl font-medium text-white h-full flex justify-center items-center w-full px-4">500k</p>
+                      <p class="block text-xl font-medium text-white h-full flex justify-center items-center w-full px-4">125 pepite</p>
+                      <p class="block text-xl font-medium text-white h-full flex justify-center items-center w-full px-4">il y a 1 jours</p>
+
+                    </div>
 
                   </div>
 
                 </a>
-                <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="archiveUrl + ressource.id">
-                  <i class="fas fa-archive text-yellow-500 hover:text-red-500 cursor-pointer text-xl"></i>
-                </a>
+
 
               </div>
 
@@ -81,18 +85,6 @@
       res_found: {
         type: [],
         required: true,
-
-      }
-    },
-    props: {
-      res: {
-        type: [],
-        required: true,
-      },
-      res_found: {
-        type: [],
-        required: true,
-
       }
     },
 

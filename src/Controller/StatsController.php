@@ -8,9 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StatsController extends AbstractController
 {
-    #[Route('/stats', name: 'stats')]
+    #[Route('/stats', name: 'landing-stats')]
     public function index(): Response
     {
+
+
         return $this->render('stats/index.html.twig', [
             'controller_name' => 'StatsController',
         ]);

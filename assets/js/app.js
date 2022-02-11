@@ -16,6 +16,7 @@ import '../bootstrap';
 
 Vue.component('search-component',require('./Components/RessourceSearch.vue').default);
 Vue.component('show-history',require('./Components/ShowHistory.vue').default);
+Vue.component('landing-stats',require('./Components/LandingStats.vue').default);
 
 const app = new Vue({
     el: '#app', // where <div id="app"> in your DOM contains the Vue template
