@@ -34,7 +34,6 @@ class RessourceEntityRepository extends ServiceEntityRepository
             ->where($this->createQueryBuilder('e')->expr()->In('r.id',$ressourceId))
             ->join('r.user_id','u')
             ->orderby('r.date','DESC')
-            ->groupby('e.id')
             ->getQuery()
             ->execute();
 
