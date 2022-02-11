@@ -19,16 +19,22 @@
 
         <div class="flex flex-col justify-center items-center w-full">
 
-              <div v-if="getFoundedPosts.length > 0 && getFilteredPosts.length == 0" class="md:w-2/5 w-4/5 flex items-center" v-for="ressource in getFoundedPosts" v-bind:key="ressource.name">
-                <a v-bind:href="url + ressource.id" class="w-full text-align bg-zinc-700 bg-opacity-75 m-3 rounded-lg cursor-pointer hover:bg-zinc-800 h-16 flex">
-                  <div class="bg-white rounded-lg w-16 h-full flex justify-center items-center" >
+              <div v-if="getFoundedPosts.length > 0 && getFilteredPosts.length <= 5" class="md:w-2/5 w-4/5 flex items-center  h-36" v-for="ressource in getFoundedPosts" v-bind:key="ressource.name">
+                <a v-bind:href="updatePost + ressource.id" class="  w-full text-align bg-zinc-700 bg-opacity-75 m-3 rounded-lg cursor-pointer hover:bg-zinc-800  flex">
+                  <div class="bg-white rounded-lg w-16  flex justify-center items-center" >
                     <div class=" text-3xl text-purple-800 font-black">{{getFirstLetter(ressource.name)}}</div>
                   </div>
-                  <p class="text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
+                  <div>
+                    <p class="block text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
+                    <p class="block text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">Renseigné par {{ ressource.username }}</p>
+
+                  </div>
+
                 </a>
                 <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="archiveUrl + ressource.id">
                   <i class="fas fa-archive text-yellow-500 hover:text-red-500 cursor-pointer text-xl"></i>
                 </a>
+
               </div>
 
             <div v-if="this.query.length < 2"></div>
@@ -38,6 +44,7 @@
                         <div class=" text-3xl text-purple-800 font-black">{{getFirstLetter(ressource.name)}}</div>
                     </div>
                     <p class="text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
+
                 </a>
                 <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="archiveUrl + ressource.id">
                     <i class="fas fa-archive text-yellow-500 hover:text-red-500 cursor-pointer text-xl"></i>
@@ -60,10 +67,21 @@
         searchPlaceholder : "Rechercher une ressource",
         url:'/ressource/add/',
         newPost:'/ressource/new',
-        archiveUrl: '/ressource/archive/'
+        archiveUrl: '/ressource/archive/',
+        updatePost: '/ressource/update/'
       }
     },
-    props: ['res','res_found'],
+    props: {
+      res: {
+        type: [],
+        required: true,
+      },
+      res_found: {
+        type: [],
+        required: true,
+
+      }
+    },
     methods:{
       getFirstLetter(name){
         return(name[0])
@@ -71,20 +89,22 @@
       }
     },
     mounted() {
-      console.log(this.res)
-      console.log(this.res_found)
+    console.log(this.res_found)
     },
     computed: {
       getFilteredPosts(){
         return this.ressources.filter(post => {
+
           if(this.query == 'oe' ){
             this.query = "Œ";
           }
+
           return post.name.toLowerCase().startsWith(this.query.toLowerCase());
         })
       },
       getFoundedPosts(){
-        return this.ressources_found.filter(post => {
+
+          return this.ressources_found.filter(post => {
           if(this.query == 'oe' ){
             this.query = "Œ";
           }
