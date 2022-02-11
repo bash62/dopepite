@@ -19,8 +19,10 @@
 
         <div class="flex flex-col justify-center items-center w-full">
 
-              <div v-if="getFoundedPosts.length > 0 && getFilteredPosts.length == 0" class="md:w-2/5 w-4/5 flex items-center  h-36" v-for="ressource in getFoundedPosts" v-bind:key="ressource.name">
-                <a v-bind:href="url + ressource.id" class="  w-full text-align bg-zinc-700 bg-opacity-75 m-3 rounded-lg cursor-pointer hover:bg-zinc-800  flex">
+
+              <div v-if="getFoundedPosts.length > 0 && getFilteredPosts.length <= 5" class="md:w-2/5 w-4/5 flex items-center  h-36" v-for="ressource in getFoundedPosts" v-bind:key="ressource.name">
+                <a v-bind:href="updatePost + ressource.id" class="  w-full text-align bg-zinc-700 bg-opacity-75 m-3 rounded-lg cursor-pointer hover:bg-zinc-800  flex">
+
                   <div class="bg-white rounded-lg w-16  flex justify-center items-center" >
                     <div class=" text-3xl text-purple-800 font-black">{{getFirstLetter(ressource.name)}}</div>
                   </div>
@@ -67,7 +69,8 @@
         searchPlaceholder : "Rechercher une ressource",
         url:'/ressource/add/',
         newPost:'/ressource/new',
-        archiveUrl: '/ressource/archive/'
+        archiveUrl: '/ressource/archive/',
+        updatePost: '/ressource/update/'
       }
     },
     props: {
@@ -81,6 +84,18 @@
 
       }
     },
+    props: {
+      res: {
+        type: [],
+        required: true,
+      },
+      res_found: {
+        type: [],
+        required: true,
+
+      }
+    },
+
     methods:{
       getFirstLetter(name){
         return(name[0])
@@ -88,14 +103,15 @@
       }
     },
     mounted() {
-
     },
     computed: {
       getFilteredPosts(){
         return this.ressources.filter(post => {
+
           if(this.query == 'oe' ){
             this.query = "Œ";
           }
+
           return post.name.toLowerCase().startsWith(this.query.toLowerCase());
         })
       },

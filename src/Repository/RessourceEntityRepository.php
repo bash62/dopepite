@@ -26,17 +26,17 @@ class RessourceEntityRepository extends ServiceEntityRepository
         foreach ($objectIds as $id){
             array_push($ressourceId,$id->getId());
         }
-        $ressourceId = array_unique($ressourceId);
+
 
         $db = $this->createQueryBuilder('r')
             ->select('r.id,e.name,r.price,r.date,u.username')
             ->join('r.ressource_id','e')
             ->where($this->createQueryBuilder('e')->expr()->In('r.id',$ressourceId))
             ->join('r.user_id','u')
-
+            ->orderby('r.date','DESC')
+            ->groupby('e.id')
             ->getQuery()
             ->execute();
-
 
         return $db;
     }

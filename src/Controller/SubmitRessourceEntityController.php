@@ -18,13 +18,75 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SubmitRessourceEntityController extends AbstractController
 {
-    #[Route('/submit/ressource/entity', name: 'submit_ressource_entity')]
-    public function index(): Response
+
+    #[Route('/ressource/update/{id}', name: 'update_ressource_form')]
+    public function updateRessourceEntityForm(int $id,ManagerRegistry $doctrine,Request $request,EntityManagerInterface $entityManager): Response
     {
-        return $this->render('submit_ressource_entity/index.html.twig', [
-            'controller_name' => 'SubmitRessourceEntityController',
+        $requestUserId = $this->getUser();
+        // Load repository
+        $ressourceEntityRepository = $doctrine->getRepository(RessourceEntity::class);
+        $dofusEntityRepository = $doctrine->getRepository(DofusRessource::class);
+
+        $ressourceEntity = $ressourceEntityRepository->find($id);
+
+        // get Dofus Ressource associated with ressource entity
+
+        $ressource = $dofusEntityRepository->find($ressourceEntity->getRessourceId()->getId());
+        //Check if entity exist
+
+        if(!$ressource){
+            return $this->redirectToRoute('show-ressources');
+
+        }
+
+        $updatedRessourceEntity = new RessourceEntity();
+        $ressourceData = $ressourceEntityRepository->find($id);
+        $updatedRessourceEntity->setCoeffPepite($ressourceData->getCoeffPepite());
+        $updatedRessourceEntity->setPrice($ressourceData->getPrice());
+        $updatedRessourceEntity->setRessourceId($ressourceData->getRessourceId());
+        $updatedRessourceEntity->setUserId($requestUserId);
+        $updatedRessourceEntity->setRessourceId($ressource);
+        $updatedRessourceEntity->setUserId($requestUserId);
+
+
+
+        // Check if user or member of group already register this RessourceEntity();
+
+        if(!$this->isAlreadyInDb($doctrine,$ressource->getId())){
+
+            return $this->redirectToRoute('sumbit_ressource_form',['id'=>$ressource->getId()]);
+
+        }
+
+        $form = $this->createForm(RessourceEntityFormType::class,$updatedRessourceEntity);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+
+
+            $price = $form->getData()->getPrice();
+            $updatedRessourceEntity->setPrice($price);
+            $entityManager->persist($updatedRessourceEntity);
+            $entityManager->flush();
+            return $this->redirect("/show");
+        }
+
+
+
+
+        return $this->render('submit_ressource_entity/update_price.html.twig', [
+
+            'form' => $form->createView(),
+            'ressource_name'=>$ressource->getName(),
+
         ]);
+
+
+
     }
+
 
     #[Route('/ressource/archive/{id}', name: 'archiver-ressource')]
     public function archiveRessource(int $id,ManagerRegistry $doctrine,Request $request): Response
@@ -101,10 +163,12 @@ class SubmitRessourceEntityController extends AbstractController
 
 
         if($this->isAlreadyInDb($doctrine,$ressource->find($id)->getId())){
+
+             $ressourceUpdated = new RessourceEntity();
              $ressourceData = $ressourceEntityRepository->find($id);
              $form = $this->createForm(RessourceEntityFormType::class,$ressourceData);
 
-            return $this->render('submit_ressource_entity/index.html.twig', [
+            return $this->render('submit_ressource_entity/update_price.html.twig', [
 
                 'form' => $form->createView(),
                 'ressource_name'=>$ressource->find($ressourceData->getId())->getName(),
@@ -150,7 +214,7 @@ class SubmitRessourceEntityController extends AbstractController
 
 
     /**
-     * Check if the id of the ressource is already given by another user
+     * Check if the id of the ressource is already given by another users in user group
      * @param ManagerRegistry $doctrine
      * @param int $id The id of the ressource
      * @return bool
@@ -192,7 +256,7 @@ class SubmitRessourceEntityController extends AbstractController
         }
 
         $found_id = array_unique($found_id);
-        dump($found_id);
+
         return in_array($id,$found_id);
 
 
