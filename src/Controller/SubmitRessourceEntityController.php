@@ -101,8 +101,15 @@ class SubmitRessourceEntityController extends AbstractController
 
 
         if($this->isAlreadyInDb($doctrine,$ressource->find($id)->getId())){
+             $ressourceData = $ressourceEntityRepository->find($id);
+             $form = $this->createForm(RessourceEntityFormType::class,$ressourceData);
 
-             return $this->redirectToRoute('show-ressources');
+            return $this->render('submit_ressource_entity/index.html.twig', [
+
+                'form' => $form->createView(),
+                'ressource_name'=>$ressource->find($ressourceData->getId())->getName(),
+
+            ]);
         }
 
 
@@ -185,6 +192,7 @@ class SubmitRessourceEntityController extends AbstractController
         }
 
         $found_id = array_unique($found_id);
+        dump($found_id);
         return in_array($id,$found_id);
 
 
