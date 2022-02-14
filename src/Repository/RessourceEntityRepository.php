@@ -20,6 +20,20 @@ class RessourceEntityRepository extends ServiceEntityRepository
     }
 
 
+    public function fetchAll(){
+
+        $db = $this->createQueryBuilder('r')
+            ->select('r.id,e.name,r.price,r.coeff_pepite, r.coeff_pepite * 274 as PRIX_MAX,  ((r.coeff_pepite/2) * 274) - r.price  as BENEF  ')
+            ->join('r.ressource_id','e')
+            ->orderby('BENEF','DESC')
+            ->getQuery()
+            ->execute();
+
+
+        return $db;
+
+    }
+
     public function fetchObjectJoin( $objectIds ) {
         $ressourceId = [];
 
