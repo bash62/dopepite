@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   sodipodi:docname="dessin.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.48229806"
+     inkscape:cx="860.46376"
+     inkscape:cy="535.97562"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="697.00949,305.78343"
+       up_right_point="1443.7982,306.3087"
+       down_left_point="696.11154,583.98843"
+       down_right_point="1501.8652,583.98843"
+       id="path-effect40"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="550.75928,267.57992"
+       up_right_point="1388.243,270.78407"
+       down_left_point="551.61635,719.71291"
+       down_right_point="1387.0839,725.14883"
+       id="path-effect56610"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect31"
+       style="fill:#2a7fff"
+       d="M -10.177312,-3.4680682 H 1912.6801 V 1079.803 H -10.177312 Z" />
+    <g
+       aria-label="dopass"
+       transform="matrix(0.74458201,0,0,1.3430354,9.1197495,12.473976)"
+       id="text56515"
+       style="font-size:415.088px;line-height:1.25;font-family:'Caesar Dressing';-inkscape-font-specification:'Caesar Dressing';fill:#164450;stroke-width:2.16192" />
+    <text
+       xml:space="preserve"
+       style="font-size:192px;line-height:0.65;font-family:C059;-inkscape-font-specification:'C059, Normal'"
+       x="859.33698"
+       y="411.90454"
+       id="text3297"><tspan
+         sodipodi:role="line"
+         id="tspan3295"
+         x="859.33698"
+         y="411.90454"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Bangers;-inkscape-font-specification:Bangers">Dofus</tspan></text>
+  </g>
+</svg>

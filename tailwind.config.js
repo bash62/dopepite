@@ -2,7 +2,7 @@ module.exports = {
   content: [
 
     "./templates/**/*.html.twig",
-      "./assets/**/*.{js,vue}"
+    "./assets/components/**/*.vue"
 
 
   ],

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MonsterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,14 +29,14 @@ class Monster
     private $imgUrl;
 
     #[ORM\ManyToMany(targetEntity: Areas::class, inversedBy: 'monsters')]
-    private $areaÃ_id;
+    private $areaï¿½_id;
 
     #[ORM\ManyToMany(targetEntity: Ressource::class, mappedBy: 'monster_id')]
     private $ressources;
 
     public function __construct()
     {
-        $this->areaÃ_id = new ArrayCollection();
+        $this->areaï¿½_id = new ArrayCollection();
         $this->ressources = new ArrayCollection();
     }
 
@@ -95,15 +96,15 @@ class Monster
     /**
      * @return Collection|Areas[]
      */
-    public function getAreaÃId(): Collection
+    public function getAreaï¿½Id(): Collection
     {
-        return $this->areaÃ_id;
+        return $this->areaï¿½_id;
     }
 
     public function addAreaId(Areas $areaId): self
     {
-        if (!$this->areaÃ_id->contains($areaId)) {
-            $this->areaÃ_id[] = $areaId;
+        if (!$this->areaï¿½_id->contains($areaId)) {
+            $this->areaï¿½_id[] = $areaId;
         }
 
         return $this;
@@ -111,7 +112,7 @@ class Monster
 
     public function removeAreaId(Areas $areaId): self
     {
-        $this->areaÃ_id->removeElement($areaId);
+        $this->areaï¿½_id->removeElement($areaId);
 
         return $this;
     }

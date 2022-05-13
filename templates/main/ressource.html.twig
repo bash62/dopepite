@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Trouve une sessource{% endblock %}
+{% block title %} Trouve une ressource{% endblock %}
 
 {% block body %}
 
     <div id="app">
-        <div class="px-10 ">
-            <search-component :res="{{ ressources.content | json_encode }}" :res_found="{{  ressource_found.content | json_encode }}"></search-component>
-        </div>
-
+    
     </div>
-
+    
 {% endblock %}
