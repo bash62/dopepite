@@ -89,17 +89,6 @@
 
       }
     },
-    props: {
-      res: {
-        type: [],
-        required: true,
-      },
-      res_found: {
-        type: [],
-        required: true,
-
-      }
-    },
 
     methods:{
       getFirstLetter(name){
@@ -110,25 +99,7 @@
     mounted() {
     },
     computed: {
-      getFilteredPosts(){
-        return this.ressources.filter(post => {
-
-          if(this.query == 'oe' ){
-            this.query = "Œ";
-          }
-
-          return post.name.toLowerCase().startsWith(this.query.toLowerCase());
-        })
-      },
-      getFoundedPosts(){
-
-          return this.ressources_found.filter(post => {
-          if(this.query == 'oe' ){
-            this.query = "Œ";
-          }
-          return post.name.toLowerCase().startsWith(this.query.toLowerCase());
-        })
-      },
+      
 
     },
   };

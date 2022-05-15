@@ -3,52 +3,70 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\DofusRessourceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: DofusRessourceRepository::class)]
 
-/**
-* @ApiResource(
-*     collectionOperations={"get"},
-*     itemOperations={"get"}
-* )
- * @ORM\Entity(repositoryClass=DofusRessourceRepository::class)
- */
+ #[ApiFilter(SearchFilter::class, properties: [ 'name' => 'partial','available' => 'exact'])]
+ #[ApiResource(
+    normalizationContext: ['groups' => ['read:resource']],
+    denormalizationContext: ['groups' => ['write:resource']],
+    itemOperations: ["get"],
+    collectionOperations: ["get"],
+    
+ )]
+ 
 
 
 class DofusRessource
 {
+
+    #[Groups(["read:resource"])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Groups(["read:resource", "write:resource"])]
     #[ORM\Column(type: 'integer')]
     private $ankamaId;
 
+    #[Groups(["read:resource", "write:resource"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
+    #[Groups(["read:resource"])]
     #[ORM\Column(type: 'integer')]
     private $level;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $type;
 
+    #[Groups(["read:resource"])]
+    #[Assert\NotBlank()]
     #[ORM\Column(type: 'string', length: 255)]
     private $imgUrl;
 
+    #[Groups(["read:resource"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $url;
 
+    #[Groups(["read:resource"])]
     #[ORM\Column(type: 'text')]
     private $description;
+
 
     #[ORM\OneToMany(mappedBy: 'ressource_id', targetEntity: RessourceEntity::class)]
     private $ressourceEntities;
 
+    #[Groups(["read:resource"])]
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $available;
 

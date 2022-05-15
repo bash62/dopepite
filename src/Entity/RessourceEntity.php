@@ -2,11 +2,27 @@
 
 namespace App\Entity;
 
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\RessourceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: RessourceEntityRepository::class)]
+
+#[ApiFilter(SearchFilter::class, properties: [ 'user_id' => 'exact'])]
+#[ApiResource(
+   normalizationContext: ['groups' => ['read:resource']],
+   denormalizationContext: ['groups' => ['write:resource']],
+   itemOperations: ["get"],
+   collectionOperations: ["get"],
+   order:["date"=> "DESC"]
+)]
+
 class RessourceEntity
 {
     #[ORM\Id]
@@ -14,6 +30,7 @@ class RessourceEntity
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Groups(["read:resource"])]
     #[ORM\ManyToOne(targetEntity: DofusRessource::class, inversedBy: 'ressourceEntities')]
     #[ORM\JoinColumn(nullable: false)]
     private $ressource_id;
@@ -34,6 +51,7 @@ class RessourceEntity
     #[ORM\JoinColumn(nullable: false)]
     private $user_id;
 
+    #[Groups(["read:resource"])]
     #[ORM\Column(type: 'datetime')]
     private $date;
 
