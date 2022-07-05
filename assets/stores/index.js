@@ -14,8 +14,9 @@ export const useDefaultStore = defineStore({
     query: '',
     url:'/ressource/add/',
     newPost:'/ressource/new',
-    archiveUrl: '/ressource/archive/',
-    updatePost: '/ressource/update/'
+    archiveUrl: '/history/revert/',
+    archiveRes: '/ressource/archive/',
+    updatePost: '/history/update/'
   }),
   getters: {
 
@@ -47,9 +48,11 @@ export const useDefaultStore = defineStore({
       })
     },
     loadData() {
-      Axios.get(this.hostIp + this.apiResource)
+      Axios.get(this.hostIp + this.apiResource+'&available=1')
       .then(res => res.data)
       .then( data => {
+
+
         this.resources = [...this.resources,...data['hydra:member']]
         this.apiResource =  data['hydra:view']['hydra:next'];
      
@@ -73,7 +76,7 @@ export const useDefaultStore = defineStore({
         const items = []
         data['hydra:member'].forEach(e => {
  
-          items.push({ressource: e['ressource_id'],date:e.date})
+          items.push({ressource: e['ressource_id'],date:e.date,id:e.id})
           
         });
 

@@ -57,7 +57,6 @@ class HistoryActionController extends AbstractController
         }
 
 
-
         $form = $this->createForm(RessourceEntityFormType::class,$ressourceEntityRepository);
 
         $form->handleRequest($request);

@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 class RessourceEntity
 {
+    #[Groups(["read:resource"])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

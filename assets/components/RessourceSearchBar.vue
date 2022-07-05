@@ -1,4 +1,4 @@
-<template>
+Fre<template>
 
         <div>
             <div class="flex items-center justify-center">
@@ -27,7 +27,7 @@
                     <p class="text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
 
                 </a>
-                <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="store.archiveUrl + ressource.id">
+                <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="store.archiveRes + ressource.id">
                     <i class="fas fa-archive text-yellow-500 hover:text-red-500 cursor-pointer text-xl"></i>
                 </a>
             </div>
@@ -43,7 +43,7 @@
                     <p class="text-3xl font-medium text-white h-full flex justify-center items-center w-full px-4">{{ ressource.name.length > 40? ressource.name.substring(0, 40)+ "..." : ressource.name }}</p>
 
                 </a>
-                <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="store.archiveUrl + ressource.id">
+                <a class="text-yellow-500 justify-center h-full flex items-center px-4" v-bind:href="store.archiveRes + ressource.id">
                     <i class="fas fa-archive text-yellow-500 hover:text-red-500 cursor-pointer text-xl"></i>
                 </a>
             </div>

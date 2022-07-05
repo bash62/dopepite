@@ -29,6 +29,7 @@ class SubmitRessourceEntityController extends AbstractController
 
         $ressourceEntity = $ressourceEntityRepository->find($id);
 
+
         // get Dofus Ressource associated with ressource entity
 
         $ressource = $dofusEntityRepository->find($ressourceEntity->getRessourceId()->getId());
@@ -103,6 +104,7 @@ class SubmitRessourceEntityController extends AbstractController
             );
         }
         $ressource->setAvailable(false);
+
         $entityManager->flush();
 
         return $this->redirectToRoute('show-ressources');
@@ -186,7 +188,6 @@ class SubmitRessourceEntityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
             $bonus = $form->getData()->getBonus();
             $pepite = $form->getData()->getCoeffPepite();
 

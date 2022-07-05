@@ -12,8 +12,9 @@ const store = useDefaultStore()
 
 
 onMounted(()=> {
-  store.loadData();
   store.loadHistory();
+  store.loadData();
+
 })
 </script>
 
